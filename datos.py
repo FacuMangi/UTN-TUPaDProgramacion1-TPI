@@ -1,5 +1,6 @@
 import csv
 
+# Hay que modificarla para que tome LISTA DE DICCIONARIOS y le de formato a los datos en consola
 # funcion que devuelve array de lineas del csv
 def mostrarPaises():
     with open("paises.csv", "r", encoding="utf-8") as archivo:
@@ -66,15 +67,11 @@ def ordenarPorNombre(paises: list):
     return(paises_ordenados)
 
 # funcion que devuelve lista de diccionarios ordenados por poblacion (asc)
-# utilizo una funcion anonima para pasar el valor de poblacion de cada pais
-# al parametro key de la funcion sorted
 def ordenarPorPoblacion(paises: list):
     paises_ordenados = sorted(paises, key=lambda x: int(x["poblacion"]))
     return(paises_ordenados)
 
 # funciones que devuelve lista de diccionarios ordenados por superficie (asc y desc)
-# utilizo una funcion anonima para pasar el valor de superficie de cada pais
-# al parametro key de la funcion sorted
 def ordenarPorSuperficieAsc(paises: list):
     paises_ordenados = sorted(paises, key=lambda x: int(x["superficie"]))
     return(paises_ordenados)
@@ -83,4 +80,38 @@ def ordenarPorSuperficieDesc(paises: list):
     paises_ordenados = sorted(paises, reverse = False, key=lambda x: int(x["superficie"]))
     return(paises_ordenados)
 
-print(ordenarPorSuperficieDesc(cargarPaises()))
+# funcion que muestra pais con mayor poblacion
+def mostrarMayorPobla(paises: list):
+    mayor_pobla = max(paises, key=lambda x: int(x["poblacion"]))
+    return(mayor_pobla)
+
+# funcion que muestra pais con menor poblacion
+def mostrarMenorPobla(paises: list):
+    menor_pobla = min(paises, key=lambda x: int(x["poblacion"]))
+    return(menor_pobla)
+
+# funcion que muestra el promedio de la poblacion de todos los paises
+def mostrarPromedioPobla(paises: list):
+    sumaPobla = 0
+    for pais in paises:
+        sumaPobla += int(pais["poblacion"])
+    promedio = sumaPobla//len(paises)
+    return(promedio)
+
+# funcion que muestra el promedio de la superficie de todos los paises
+def mostrarPromedioSuper(paises: list):
+    sumaSuper = 0
+    for pais in paises:
+        sumaSuper += int(pais["superficie"])
+    promedio = sumaSuper//len(paises)
+    return(promedio)
+
+def mostrarCantPorCont(paises: list, continente: str):
+    cant_paises = 0
+    for pais in paises:
+        if pais["continente"] == continente:
+            cant_paises += 1
+    
+    return(cant_paises)
+
+print(mostrarCantPorCont(cargarPaises(), "Oceania"))
