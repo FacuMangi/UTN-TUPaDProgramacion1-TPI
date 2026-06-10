@@ -1,11 +1,19 @@
+# funcion que devuelve lista de diccionarios de paises que cuyo nombre coincide
+# parcial o totalmente
 def buscarPorNombre(paises: list, nombre: str):
-    pass
+    nombre = nombre.lower()
+    resultados = []
+
+    for pais in paises:
+        if nombre in pais["nombre"].lower():
+            resultados.append(pais)
+    return resultados
 
 # funcion que devuelve lista de diccionarios de paises de un continente especifico
 def filtrarPorContinente(paises: list, continente: str):
     filtrados = []
     for pais in paises:
-        if pais['continente'] == continente:
+        if pais['continente'].lower() == continente.lower():
             filtrados.append(pais)
     return(filtrados)
 
@@ -55,7 +63,7 @@ def ordenarPorSuperficieAsc(paises: list):
     return(paises_ordenados)
 
 def ordenarPorSuperficieDesc(paises: list):
-    paises_ordenados = sorted(paises, reverse = False, key=lambda x: int(x["superficie"]))
+    paises_ordenados = sorted(paises, reverse = True, key=lambda x: int(x["superficie"]))
     return(paises_ordenados)
 
 # funcion que muestra pais con mayor poblacion
@@ -88,7 +96,15 @@ def mostrarPromedioSuper(paises: list):
 def mostrarCantPorCont(paises: list, continente: str):
     cant_paises = 0
     for pais in paises:
-        if pais["continente"] == continente:
+        if pais["continente"].lower() == continente.lower():
             cant_paises += 1
     
     return(cant_paises)
+
+# funcion que muestra los datos de un pais dado su diccionario
+def mostrarPais(pais):
+    print("\n------------------------")
+    print(f"País: {pais['nombre']}")
+    print(f"Población: {pais['poblacion']}")
+    print(f"Superficie: {pais['superficie']} km²")
+    print(f"Continente: {pais['continente']}")
