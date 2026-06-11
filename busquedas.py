@@ -1,11 +1,11 @@
 # funcion que devuelve lista de diccionarios de paises que cuyo nombre coincide
 # parcial o totalmente
 def buscarPorNombre(paises: list, nombre: str):
-    nombre = nombre.title()
+    nombre = nombre.lower()
     resultados = []
 
     for pais in paises:
-        if nombre in pais["nombre"].title():
+        if nombre in pais["nombre"].lower():
             resultados.append(pais)
     return resultados
 
@@ -13,7 +13,7 @@ def buscarPorNombre(paises: list, nombre: str):
 def filtrarPorContinente(paises: list, continente: str):
     filtrados = []
     for pais in paises:
-        if pais['continente'].title() == continente.title():
+        if continente.lower() in pais['continente'].lower():
             filtrados.append(pais)
     return(filtrados)
 

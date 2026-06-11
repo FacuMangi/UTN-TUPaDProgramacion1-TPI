@@ -2,7 +2,7 @@ from datos import cargarPaises, guardarCambios
 from busquedas import (buscarPorNombre, filtrarPorContinente, filtrarPorPoblacion, filtrarPorSuperficie, 
 ordenarPorNombre, ordenarPorPoblacion, ordenarPorSuperficieAsc, ordenarPorSuperficieDesc, mostrarMayorPobla,
 mostrarMenorPobla, mostrarPromedioPobla, mostrarPromedioSuper, mostrarCantPorCont, mostrarPais)
-from validaciones import inputNoVacio, inputInt
+from validaciones import validarInputTexto, inputInt
 
 # Menu principal del programa
 def mostrarMenu():
@@ -56,7 +56,7 @@ def main():
         # BUSQUEDA DE PAÍSES
         # ==========================
         if opcion == 1:
-            nombre = inputNoVacio("Ingrese el nombre del país a buscar: ")
+            nombre = validarInputTexto("Ingrese el nombre del país a buscar: ")
             resultados = buscarPorNombre(paises, nombre)
 
             if resultados:
@@ -75,7 +75,7 @@ def main():
                 op_filtro = inputInt("Seleccione una opción: ", 0, 3)
 
                 if op_filtro == 1:
-                    cont = inputNoVacio("Ingrese continente: ")
+                    cont = validarInputTexto("Ingrese continente: ")
                     resultados = filtrarPorContinente(paises, cont)
 
                 elif op_filtro == 2:
@@ -156,7 +156,7 @@ def main():
                     print(f"\nPromedio de superficie: {promedio:,} km²")
 
                 elif op_estad == 5:
-                    continente = inputNoVacio("Ingrese continente: ")
+                    continente = validarInputTexto("Ingrese continente: ")
                     cantidad = mostrarCantPorCont(paises, continente)
                     print(f"\nCantidad de países en {continente}: {cantidad}")
                 
