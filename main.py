@@ -2,7 +2,7 @@ from datos import cargarPaises, guardarCambios, agregarPais, actualizarPobla, ac
 from busquedas import (buscarPorNombre, filtrarPorContinente, filtrarPorPoblacion, filtrarPorSuperficie, 
 ordenarPorNombre, ordenarPorPoblacion, ordenarPorSuperficieAsc, ordenarPorSuperficieDesc, mostrarMayorPobla,
 mostrarMenorPobla, mostrarPromedioPobla, mostrarPromedioSuper, mostrarCantPorCont, mostrarPais)
-from validaciones import validarInputTexto, inputInt
+from validaciones import validarInputNumero, validarInputTexto, inputInt
 
 # Menu principal del programa
 def mostrarMenu():
@@ -85,13 +85,13 @@ def main():
                         resultados = filtrarPorContinente(paises, cont)
 
                     elif op_filtro == 2:
-                        pob_min = inputInt("Ingrese población mínima: ", 0, 10_000_000_000)
-                        pob_max = inputInt("Ingrese población máxima: ", pob_min, 10_000_000_000)
+                        pob_min = validarInputNumero("Ingrese población mínima: ")
+                        pob_max = validarInputNumero("Ingrese población máxima: ")
                         resultados = filtrarPorPoblacion(paises, pob_min, pob_max)
 
                     elif op_filtro == 3:
-                        sup_min = inputInt("Ingrese superficie mínima: ", 0, 20_000_000)
-                        sup_max = inputInt("Ingrese superficie máxima: ", sup_min, 20_000_000)
+                        sup_min = validarInputNumero("Ingrese superficie mínima: ")
+                        sup_max = validarInputNumero("Ingrese superficie máxima: ")
                         resultados = filtrarPorSuperficie(paises, sup_min, sup_max)
 
                     elif op_filtro == 0:
