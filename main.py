@@ -61,7 +61,10 @@ def main():
                 nombre = validarInputTexto("Ingrese el nombre del país a buscar: ")
                 resultados = buscarPorNombre(paises, nombre)
 
-                print(f"\n{len(resultados)} resultados con '{nombre}':")
+                if len(resultados) == 1:
+                    print(f"\n{len(resultados)} resultado con '{nombre.title()}':")
+                else:
+                    print(f"\n{len(resultados)} resultados con '{nombre.title()}':")
                 
                 for pais in resultados:
                     mostrarPais(pais)
@@ -166,7 +169,7 @@ def main():
                     elif op_estad == 5:
                         continente = validarInputTexto("Ingrese continente: ")
                         cantidad = mostrarCantPorCont(paises, continente)
-                        print(f"\nCantidad de países en {continente}: {cantidad}")
+                        print(f"\nCantidad de países en {continente.title()}: {cantidad}")
                     
                     elif op_estad == 0:
                         break
