@@ -2,7 +2,7 @@ from datos import cargarPaises, guardarCambios, agregarPais, actualizarPobla, ac
 from busquedas import (buscarPorNombre, filtrarPorContinente, filtrarPorPoblacion, filtrarPorSuperficie, 
 ordenarPorNombre, ordenarPorPoblacion, ordenarPorSuperficieAsc, ordenarPorSuperficieDesc, mostrarMayorPobla,
 mostrarMenorPobla, mostrarPromedioPobla, mostrarPromedioSuper, mostrarCantPorCont, mostrarPais)
-from validaciones import validarInputTexto, inputInt
+from validaciones import validarInputNumero, validarInputTexto, inputInt
 
 # Menu principal del programa
 def mostrarMenu():
@@ -61,7 +61,10 @@ def main():
                 nombre = validarInputTexto("Ingrese el nombre del país a buscar: ")
                 resultados = buscarPorNombre(paises, nombre)
 
-                print(f"\n{len(resultados)} resultados con '{nombre}':")
+                if len(resultados) == 1:
+                    print(f"\n{len(resultados)} resultado con '{nombre.title()}':")
+                else:
+                    print(f"\n{len(resultados)} resultados con '{nombre.title()}':")
                 
                 for pais in resultados:
                     mostrarPais(pais)
@@ -82,13 +85,13 @@ def main():
                         resultados = filtrarPorContinente(paises, cont)
 
                     elif op_filtro == 2:
-                        pob_min = inputInt("Ingrese población mínima: ", 0, 10_000_000_000)
-                        pob_max = inputInt("Ingrese población máxima: ", pob_min, 10_000_000_000)
+                        pob_min = validarInputNumero("Ingrese población mínima: ")
+                        pob_max = validarInputNumero("Ingrese población máxima: ")
                         resultados = filtrarPorPoblacion(paises, pob_min, pob_max)
 
                     elif op_filtro == 3:
-                        sup_min = inputInt("Ingrese superficie mínima: ", 0, 20_000_000)
-                        sup_max = inputInt("Ingrese superficie máxima: ", sup_min, 20_000_000)
+                        sup_min = validarInputNumero("Ingrese superficie mínima: ")
+                        sup_max = validarInputNumero("Ingrese superficie máxima: ")
                         resultados = filtrarPorSuperficie(paises, sup_min, sup_max)
 
                     elif op_filtro == 0:
@@ -166,7 +169,7 @@ def main():
                     elif op_estad == 5:
                         continente = validarInputTexto("Ingrese continente: ")
                         cantidad = mostrarCantPorCont(paises, continente)
-                        print(f"\nCantidad de países en {continente}: {cantidad}")
+                        print(f"\nCantidad de países en {continente.title()}: {cantidad}")
                     
                     elif op_estad == 0:
                         break
@@ -178,33 +181,45 @@ def main():
         # AGREGAR PAÍS
         # ==========================
         elif opcion == 5:
-            print("\n===== AGREGAR PAÍS =====")
-            paises = agregarPais(paises)
-            print("\nPaís agregado correctamente.")
-        
+            try:
+                print("\n===== AGREGAR PAÍS =====")
+                paises = agregarPais(paises)
+                print("\nPaís agregado correctamente.")
+            except Exception as e:
+                print(f"Se ha producido un error en el guardado: {e}")
+                
         # ==========================
         # ACTUALIZAR POBLACIÓN
         # ==========================
         elif opcion == 6:
-            print("\n===== ACTUALIZAR POBLACIÓN =====")
-            paises = actualizarPobla(paises)
-            print("\nPoblación actualizada correctamente.")
+            try:
+                print("\n===== ACTUALIZAR POBLACIÓN =====")
+                paises = actualizarPobla(paises)
+                print("\nPoblación actualizada correctamente.")
+            except Exception as e:
+                print(f"Se ha producido un error en el guardado: {e}")
 
         # ==========================
         # ACTUALIZAR SUPERFICIE
         # ==========================
         elif opcion == 7:
-            print("\n===== ACTUALIZAR SUPERFICIE =====")
-            paises = actualizarSuper(paises)
-            print("\nSuperficie actualizada correctamente.")
+            try:
+                print("\n===== ACTUALIZAR SUPERFICIE =====")
+                paises = actualizarSuper(paises)
+                print("\nSuperficie actualizada correctamente.")
+            except Exception as e:
+                print(f"Se ha producido un error en el guardado: {e}")    
 
         # ==========================
         # GUARDAR CAMBIOS
         # ==========================
         elif opcion == 8:
-            guardarCambios(paises)
-            print("Cambios guardados exitosamente.")
-
+            try:
+                guardarCambios(paises)
+                print("Cambios guardados exitosamente.")
+            except Exception as e:
+                print(f"Se ha producido un error en el guardado: {e}")
+                
         elif opcion == 0:
             print("\nSaliendo del programa.")
             break
