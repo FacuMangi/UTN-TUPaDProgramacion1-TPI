@@ -1,4 +1,4 @@
-from datos import cargarPaises, guardarCambios
+from datos import cargarPaises, guardarCambios, agregarPais, actualizarPobla, actualizarSuper
 from busquedas import (buscarPorNombre, filtrarPorContinente, filtrarPorPoblacion, filtrarPorSuperficie, 
 ordenarPorNombre, ordenarPorPoblacion, ordenarPorSuperficieAsc, ordenarPorSuperficieDesc, mostrarMayorPobla,
 mostrarMenorPobla, mostrarPromedioPobla, mostrarPromedioSuper, mostrarCantPorCont, mostrarPais)
@@ -56,16 +56,18 @@ def main():
         # BUSQUEDA DE PAÍSES
         # ==========================
         if opcion == 1:
-            nombre = validarInputTexto("Ingrese el nombre del país a buscar: ")
-            resultados = buscarPorNombre(paises, nombre)
+            print("\n===== BUSCAR PAÍS =====")
+            try:
+                nombre = validarInputTexto("Ingrese el nombre del país a buscar: ")
+                resultados = buscarPorNombre(paises, nombre)
 
-            if resultados:
                 print(f"\n{len(resultados)} resultados con '{nombre}':")
+                
                 for pais in resultados:
                     mostrarPais(pais)
-            else:
-                print(f"No se encontraron países con el nombre '{nombre}'.")
 
+            except ValueError as e:
+                print(f"\n{e}")
         # ==========================
         # FILTROS DE PAÍSES
         # ==========================
@@ -74,31 +76,32 @@ def main():
                 menuFiltros()
                 op_filtro = inputInt("Seleccione una opción: ", 0, 3)
 
-                if op_filtro == 1:
-                    cont = validarInputTexto("Ingrese continente: ")
-                    resultados = filtrarPorContinente(paises, cont)
+                try:
+                    if op_filtro == 1:
+                        cont = validarInputTexto("Ingrese continente: ")
+                        resultados = filtrarPorContinente(paises, cont)
 
-                elif op_filtro == 2:
-                    pob_min = inputInt("Ingrese población mínima: ", 0, 10_000_000_000)
-                    pob_max = inputInt("Ingrese población máxima: ", pob_min, 10_000_000_000)
-                    resultados = filtrarPorPoblacion(paises, pob_min, pob_max)
+                    elif op_filtro == 2:
+                        pob_min = inputInt("Ingrese población mínima: ", 0, 10_000_000_000)
+                        pob_max = inputInt("Ingrese población máxima: ", pob_min, 10_000_000_000)
+                        resultados = filtrarPorPoblacion(paises, pob_min, pob_max)
 
-                elif op_filtro == 3:
-                    sup_min = inputInt("Ingrese superficie mínima: ", 0, 20_000_000)
-                    sup_max = inputInt("Ingrese superficie máxima: ", sup_min, 20_000_000)
-                    resultados = filtrarPorSuperficie(paises, sup_min, sup_max)
+                    elif op_filtro == 3:
+                        sup_min = inputInt("Ingrese superficie mínima: ", 0, 20_000_000)
+                        sup_max = inputInt("Ingrese superficie máxima: ", sup_min, 20_000_000)
+                        resultados = filtrarPorSuperficie(paises, sup_min, sup_max)
 
-                elif op_filtro == 0:
-                    break
+                    elif op_filtro == 0:
+                        break
 
-                # Muestra resultados
-                if op_filtro != 0:
-                    if resultados:
+                    # Muestra resultados
+                    if op_filtro != 0:
                         print(f"\n{len(resultados)} países encontrados:")
                         for pais in resultados:
                             mostrarPais(pais)
-                    else:
-                        print("No se encontraron países con ese filtro.")
+
+                except ValueError as e:
+                    print(f"\n{e}")
 
         # ==========================
         # ORDENAMIENTO DE PAÍSES
@@ -108,26 +111,30 @@ def main():
                 menuOrdenamiento()
                 op_orden = inputInt("Seleccione una opción: ", 0, 4)
 
-                if op_orden == 1:
-                    resultados = ordenarPorNombre(paises)
+                try:
+                    if op_orden == 1:
+                        resultados = ordenarPorNombre(paises)
 
-                elif op_orden == 2:
-                    resultados = ordenarPorPoblacion(paises)
+                    elif op_orden == 2:
+                        resultados = ordenarPorPoblacion(paises)
 
-                elif op_orden == 3:
-                    resultados = ordenarPorSuperficieAsc(paises)
+                    elif op_orden == 3:
+                        resultados = ordenarPorSuperficieAsc(paises)
 
-                elif op_orden == 4:
-                    resultados = ordenarPorSuperficieDesc(paises)
+                    elif op_orden == 4:
+                        resultados = ordenarPorSuperficieDesc(paises)
 
-                elif op_orden == 0:
-                    break
+                    elif op_orden == 0:
+                        break
 
-                # Muestra resultados
-                if op_orden != 0:
-                    print(f"\n{len(resultados)} países ordenados:")
-                    for pais in resultados:
-                        mostrarPais(pais)
+                    # Muestra resultados
+                    if op_orden != 0:
+                        print(f"\n{len(resultados)} países ordenados:")
+                        for pais in resultados:
+                            mostrarPais(pais)
+
+                except ValueError as e:
+                    print(f"\n{e}")
 
         # ==========================
         # ESTADÍSTICAS DE PAÍSES
@@ -137,44 +144,63 @@ def main():
                 menuEstadisticas()
                 op_estad = inputInt("Seleccione una opción: ", 0, 5)
 
-                if op_estad == 1:
-                    pais = mostrarMayorPobla(paises)
-                    print("\nPaís con mayor población:")
-                    mostrarPais(pais)
-                
-                elif op_estad == 2:
-                    pais = mostrarMenorPobla(paises)
-                    print("\nPaís con menor población:")
-                    mostrarPais(pais)
-                
-                elif op_estad == 3:
-                    promedio = mostrarPromedioPobla(paises)
-                    print(f"\nPromedio de población: {promedio:,} habitantes")
+                try:
+                    if op_estad == 1:
+                        pais = mostrarMayorPobla(paises)
+                        print("\nPaís con mayor población:")
+                        mostrarPais(pais)
+                    
+                    elif op_estad == 2:
+                        pais = mostrarMenorPobla(paises)
+                        print("\nPaís con menor población:")
+                        mostrarPais(pais)
+                    
+                    elif op_estad == 3:
+                        promedio = mostrarPromedioPobla(paises)
+                        print(f"\nPromedio de población: {promedio:,} habitantes")
 
-                elif op_estad == 4:
-                    promedio = mostrarPromedioSuper(paises)
-                    print(f"\nPromedio de superficie: {promedio:,} km²")
+                    elif op_estad == 4:
+                        promedio = mostrarPromedioSuper(paises)
+                        print(f"\nPromedio de superficie: {promedio:,} km²")
 
-                elif op_estad == 5:
-                    continente = validarInputTexto("Ingrese continente: ")
-                    cantidad = mostrarCantPorCont(paises, continente)
-                    print(f"\nCantidad de países en {continente}: {cantidad}")
-                
-                elif op_estad == 0:
-                    break
-        
-        # Funcionalidad pendiente: agregar país
+                    elif op_estad == 5:
+                        continente = validarInputTexto("Ingrese continente: ")
+                        cantidad = mostrarCantPorCont(paises, continente)
+                        print(f"\nCantidad de países en {continente}: {cantidad}")
+                    
+                    elif op_estad == 0:
+                        break
+
+                except ValueError as e:
+                    print(f"\n{e}")
+
+        # ==========================
+        # AGREGAR PAÍS
+        # ==========================
         elif opcion == 5:
-            pass
+            print("\n===== AGREGAR PAÍS =====")
+            paises = agregarPais(paises)
+            print("\nPaís agregado correctamente.")
         
-        # Funcionalidad pendiente: actualizar población
+        # ==========================
+        # ACTUALIZAR POBLACIÓN
+        # ==========================
         elif opcion == 6:
-            pass
+            print("\n===== ACTUALIZAR POBLACIÓN =====")
+            paises = actualizarPobla(paises)
+            print("\nPoblación actualizada correctamente.")
 
-        # Funcionalidad pendiente: actualizar superficie
+        # ==========================
+        # ACTUALIZAR SUPERFICIE
+        # ==========================
         elif opcion == 7:
-            pass
+            print("\n===== ACTUALIZAR SUPERFICIE =====")
+            paises = actualizarSuper(paises)
+            print("\nSuperficie actualizada correctamente.")
 
+        # ==========================
+        # GUARDAR CAMBIOS
+        # ==========================
         elif opcion == 8:
             guardarCambios(paises)
             print("Cambios guardados exitosamente.")
