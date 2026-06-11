@@ -48,5 +48,14 @@ def cargarPaises():
 
 # funcion que toma lista de diccionarios y modifica csv con sus datos
 def guardarCambios(paises: list):
-    with open("paises.csv", "w", encoding="utf-8") as archivo:
-        pass
+    columnas = ["nombre", "poblacion", "superficie", "continente"]
+    try:
+        with open("paises.csv", "w", newline="", encoding="utf-8") as archivo:
+            escritorDict = csv.DictWriter(archivo, fieldnames=columnas)
+            escritorDict.writeheader()
+            escritorDict.writerows(paises)
+    
+        print("Archivo modificado correctamente.")
+
+    except Exception as e:
+        print(f"Se ha producido un error en el guardado: {e}")
