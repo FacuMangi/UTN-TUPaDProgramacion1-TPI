@@ -178,33 +178,45 @@ def main():
         # AGREGAR PAÍS
         # ==========================
         elif opcion == 5:
-            print("\n===== AGREGAR PAÍS =====")
-            paises = agregarPais(paises)
-            print("\nPaís agregado correctamente.")
-        
+            try:
+                print("\n===== AGREGAR PAÍS =====")
+                paises = agregarPais(paises)
+                print("\nPaís agregado correctamente.")
+            except Exception as e:
+                print(f"Se ha producido un error en el guardado: {e}")
+                
         # ==========================
         # ACTUALIZAR POBLACIÓN
         # ==========================
         elif opcion == 6:
-            print("\n===== ACTUALIZAR POBLACIÓN =====")
-            paises = actualizarPobla(paises)
-            print("\nPoblación actualizada correctamente.")
+            try:
+                print("\n===== ACTUALIZAR POBLACIÓN =====")
+                paises = actualizarPobla(paises)
+                print("\nPoblación actualizada correctamente.")
+            except Exception as e:
+                print(f"Se ha producido un error en el guardado: {e}")
 
         # ==========================
         # ACTUALIZAR SUPERFICIE
         # ==========================
         elif opcion == 7:
-            print("\n===== ACTUALIZAR SUPERFICIE =====")
-            paises = actualizarSuper(paises)
-            print("\nSuperficie actualizada correctamente.")
+            try:
+                print("\n===== ACTUALIZAR SUPERFICIE =====")
+                paises = actualizarSuper(paises)
+                print("\nSuperficie actualizada correctamente.")
+            except Exception as e:
+                print(f"Se ha producido un error en el guardado: {e}")    
 
         # ==========================
         # GUARDAR CAMBIOS
         # ==========================
         elif opcion == 8:
-            guardarCambios(paises)
-            print("Cambios guardados exitosamente.")
-
+            try:
+                guardarCambios(paises)
+                print("Cambios guardados exitosamente.")
+            except Exception as e:
+                print(f"Se ha producido un error en el guardado: {e}")
+                
         elif opcion == 0:
             print("\nSaliendo del programa.")
             break

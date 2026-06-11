@@ -81,18 +81,8 @@ def guardarCambios(paises: list):
         raise ValueError("Error: no hay paises cargados.")
         
     columnas = ["nombre", "poblacion", "superficie", "continente"]
-    try:
-        with open("paises.csv", "w", newline="", encoding="utf-8") as archivo:
-            escritorDict = csv.DictWriter(archivo, fieldnames=columnas)
-            escritorDict.writeheader()
-            escritorDict.writerows(paises)
-    
-        print("Archivo modificado correctamente.")
 
-    except Exception as e:
-        print(f"Se ha producido un error en el guardado: {e}")
-
-try:
-    print(actualizarSuper(cargarPaises()))
-except Exception as e:
-    print(e)
+    with open("paises.csv", "w", newline="", encoding="utf-8") as archivo:
+        escritorDict = csv.DictWriter(archivo, fieldnames=columnas)
+        escritorDict.writeheader()
+        escritorDict.writerows(paises)
