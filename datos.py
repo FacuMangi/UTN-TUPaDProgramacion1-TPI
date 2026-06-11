@@ -1,14 +1,14 @@
 import csv
-from validaciones import validarNumero, validarTexto
+from validaciones import validarInputNumero, validarInputTexto
 
 # funcion que toma lista de paises y diccionario de pais, agrega este ultimo a la lista
 def agregarPais(paises: list):
     para_agregar = {}
 
-    para_agregar["nombre"] = validarTexto("Ingrese nombre del pais: ").title()
-    para_agregar["poblacion"] = validarNumero("Ingrese poblacion del pais: ")
-    para_agregar["superficie"] = validarNumero("Ingrese superficie del pais: ")
-    para_agregar["continente"] = validarTexto("Ingrese continente del pais: ").title()
+    para_agregar["nombre"] = validarInputTexto("Ingrese nombre del pais: ").title()
+    para_agregar["poblacion"] = validarInputNumero("Ingrese poblacion del pais: ")
+    para_agregar["superficie"] = validarInputNumero("Ingrese superficie del pais: ")
+    para_agregar["continente"] = validarInputTexto("Ingrese continente del pais: ").title()
     
     paises.append(para_agregar)
 
@@ -24,6 +24,12 @@ def actualizarSuper():
 def cargarPaises():
     with open("paises.csv", "r", encoding="utf-8") as archivo:
         listaDic = list(csv.DictReader(archivo))
+        
+        # se convierten valores numericos de string a int
+        for pais in listaDic:
+            pais["poblacion"] = int(pais["poblacion"])
+            pais["superficie"] = int(pais["superficie"])
+
         return(listaDic)
 
 # funcion que toma lista de diccionarios y modifica csv con sus datos

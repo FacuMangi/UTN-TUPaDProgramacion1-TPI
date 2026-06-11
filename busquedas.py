@@ -26,7 +26,7 @@ def filtrarPorPoblacion(paises: list, min_pob: int, max_pob: int):
         raise ValueError("Error: minimo es mayor que maximo.")
     
     for pais in paises:
-        pob = int(pais['poblacion'])
+        pob = pais['poblacion']
         if min_pob <= pob <= max_pob:
             filtrados.append(pais)
     return(filtrados)
@@ -40,7 +40,7 @@ def filtrarPorSuperficie(paises: list, min_sup: int, max_sup: int):
         raise ValueError("Error: minimo es mayor que maximo.")
     
     for pais in paises:
-        pob = int(pais['superficie'])
+        pob = pais['superficie']
         if min_sup <= pob <= max_sup:
             filtrados.append(pais)
     return(filtrados)
@@ -54,26 +54,26 @@ def ordenarPorNombre(paises: list):
 
 # funcion que devuelve lista de diccionarios ordenados por poblacion (asc)
 def ordenarPorPoblacion(paises: list):
-    paises_ordenados = sorted(paises, key=lambda x: int(x["poblacion"]))
+    paises_ordenados = sorted(paises, key=lambda x: x["poblacion"])
     return(paises_ordenados)
 
 # funciones que devuelve lista de diccionarios ordenados por superficie (asc y desc)
 def ordenarPorSuperficieAsc(paises: list):
-    paises_ordenados = sorted(paises, key=lambda x: int(x["superficie"]))
+    paises_ordenados = sorted(paises, key=lambda x: x["superficie"])
     return(paises_ordenados)
 
 def ordenarPorSuperficieDesc(paises: list):
-    paises_ordenados = sorted(paises, reverse = True, key=lambda x: int(x["superficie"]))
+    paises_ordenados = sorted(paises, reverse = True, key=lambda x: x["superficie"])
     return(paises_ordenados)
 
 # funcion que muestra pais con mayor poblacion
 def mostrarMayorPobla(paises: list):
-    mayor_pobla = max(paises, key=lambda x: int(x["poblacion"]))
+    mayor_pobla = max(paises, key=lambda x: x["poblacion"])
     return(mayor_pobla)
 
 # funcion que muestra pais con menor poblacion
 def mostrarMenorPobla(paises: list):
-    menor_pobla = min(paises, key=lambda x: int(x["poblacion"]))
+    menor_pobla = min(paises, key=lambda x: x["poblacion"])
     return(menor_pobla)
 
 # funcion que muestra el promedio de la poblacion de todos los paises
@@ -88,7 +88,7 @@ def mostrarPromedioPobla(paises: list):
 def mostrarPromedioSuper(paises: list):
     sumaSuper = 0
     for pais in paises:
-        sumaSuper += int(pais["superficie"])
+        sumaSuper += pais["superficie"]
     promedio = sumaSuper//len(paises)
     return(promedio)
 
