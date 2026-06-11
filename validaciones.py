@@ -1,6 +1,6 @@
 # Funcion que recibe un mensaje que luego usa para crear un input
 # luego valida ese input como string en un loop while
-def validarTexto(mensaje: str):
+def validarInputTexto(mensaje: str):
 	while True:
 		v = input(mensaje).strip()
 		if v and v.replace(" ", "").isalpha():
@@ -9,7 +9,7 @@ def validarTexto(mensaje: str):
 
 # Funcion que recibe un mensaje que luego usa para crear un input
 # luego valida ese input como integer en un loop while (devuelve string)
-def validarNumero(mensaje: str):
+def validarInputNumero(mensaje: str):
 	while True:
 		s = input(mensaje).strip()
 		if s == "":
@@ -23,7 +23,7 @@ def validarNumero(mensaje: str):
 		if v <= 0:
 			print("Ingrese un número positivo (mayor que 0).")
 			continue
-		return str(v)
+		return v
 
 # 
 def inputInt(mensaje, minimum=None, maximum=None):
