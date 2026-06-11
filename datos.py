@@ -3,34 +3,63 @@ from validaciones import validarInputNumero, validarInputTexto
 
 # funcion que toma lista de paises y diccionario de pais, agrega este ultimo a la lista
 def agregarPais(paises: list):
+    if not paises:
+        raise ValueError("Error: no hay paises cargados.")
+    
     paraAgregar = {}
 
-    paraAgregar["nombre"] = validarInputTexto("Ingrese nombre del pais: ").title()
-    paraAgregar["poblacion"] = validarInputNumero("Ingrese poblacion del pais: ")
-    paraAgregar["superficie"] = validarInputNumero("Ingrese superficie del pais: ")
-    paraAgregar["continente"] = validarInputTexto("Ingrese continente del pais: ").title()
+    nombre = validarInputTexto("Ingrese nombre del pais: ").title()
+
+    for pais in paises:
+        if pais["nombre"].lower() == nombre.lower():
+            raise ValueError(f"Error: {nombre} ya fue agregado previamente.")
+
+    paraAgregar["nombre"] = nombre
+    paraAgregar["poblacion"] = validarInputNumero(f"Ingrese poblacion para {nombre}: ")
+    paraAgregar["superficie"] = validarInputNumero(f"Ingrese superficie para {nombre}: ")
+    paraAgregar["continente"] = validarInputTexto(f"Ingrese continente para {nombre}: ").title()
     
     paises.append(paraAgregar)
 
     return(paises)
 
 def actualizarPobla(paises: list):
-    pais = validarInputTexto("Ingresar pais para modificar poblacion: ").title()
-    nuevaPobla = validarInputNumero(f"Ingresar nueva poblacion de {pais}: ")
+    if not paises:
+        raise ValueError("Error: no hay paises cargados.")
+    
+    pais = validarInputTexto("Ingresar pais para modificar poblacion: ")
+    nuevaPobla = validarInputNumero(f"Ingresar nueva poblacion de {pais.title()}: ")
+
+    actualizado = False
 
     for p in paises:
-        if p["nombre"] == pais:
+        if p["nombre"].lower() == pais.lower():
             p["poblacion"] = nuevaPobla
+            actualizado = True
+            break
+
+    if not actualizado:
+        raise ValueError(f'Error: no se encontro el pais "{pais}".')
     
     return(paises)
 
 def actualizarSuper(paises: list):
-    pais = validarInputTexto("Ingresar pais para modificar superficie: ").title()
-    nuevaSuper = validarInputNumero(f"Ingresar nueva superficie de {pais}: ")
+    if not paises:
+        raise ValueError("Error: no hay paises cargados.")
+    
+    pais = validarInputTexto("Ingresar pais para modificar superficie: ")
+    nuevaSuper = validarInputNumero(f"Ingresar nueva superficie de {pais.title()}: ")
+
+    actualizado = False
 
     for p in paises:
-        if p["nombre"] == pais:
+        if p["nombre"].lower() == pais.lower():
             p["superficie"] = nuevaSuper
+            actualizado = True
+            break
+    
+    if not actualizado:
+        raise ValueError(f'Error: no se encontro el pais "{pais}".')
     
     return(paises)
 
@@ -48,6 +77,9 @@ def cargarPaises():
 
 # funcion que toma lista de diccionarios y modifica csv con sus datos
 def guardarCambios(paises: list):
+    if not paises:
+        raise ValueError("Error: no hay paises cargados.")
+        
     columnas = ["nombre", "poblacion", "superficie", "continente"]
     try:
         with open("paises.csv", "w", newline="", encoding="utf-8") as archivo:
@@ -59,3 +91,8 @@ def guardarCambios(paises: list):
 
     except Exception as e:
         print(f"Se ha producido un error en el guardado: {e}")
+
+try:
+    print(actualizarSuper(cargarPaises()))
+except Exception as e:
+    print(e)
