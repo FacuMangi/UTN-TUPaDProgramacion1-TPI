@@ -3,22 +3,36 @@ from validaciones import validarInputNumero, validarInputTexto
 
 # funcion que toma lista de paises y diccionario de pais, agrega este ultimo a la lista
 def agregarPais(paises: list):
-    para_agregar = {}
+    paraAgregar = {}
 
-    para_agregar["nombre"] = validarInputTexto("Ingrese nombre del pais: ").title()
-    para_agregar["poblacion"] = validarInputNumero("Ingrese poblacion del pais: ")
-    para_agregar["superficie"] = validarInputNumero("Ingrese superficie del pais: ")
-    para_agregar["continente"] = validarInputTexto("Ingrese continente del pais: ").title()
+    paraAgregar["nombre"] = validarInputTexto("Ingrese nombre del pais: ").title()
+    paraAgregar["poblacion"] = validarInputNumero("Ingrese poblacion del pais: ")
+    paraAgregar["superficie"] = validarInputNumero("Ingrese superficie del pais: ")
+    paraAgregar["continente"] = validarInputTexto("Ingrese continente del pais: ").title()
     
-    paises.append(para_agregar)
+    paises.append(paraAgregar)
 
     return(paises)
 
-def actualizarPobla():
-    pass
+def actualizarPobla(paises: list):
+    pais = validarInputTexto("Ingresar pais para modificar poblacion: ").title()
+    nuevaPobla = validarInputNumero(f"Ingresar nueva poblacion de {pais}: ")
 
-def actualizarSuper():
-    pass
+    for p in paises:
+        if p["nombre"] == pais:
+            p["poblacion"] = nuevaPobla
+    
+    return(paises)
+
+def actualizarSuper(paises: list):
+    pais = validarInputTexto("Ingresar pais para modificar superficie: ").title()
+    nuevaSuper = validarInputNumero(f"Ingresar nueva superficie de {pais}: ")
+
+    for p in paises:
+        if p["nombre"] == pais:
+            p["superficie"] = nuevaSuper
+    
+    return(paises)
 
 # funcion que devuelve filas de csv como lista de diccionarios con dupla key-value
 def cargarPaises():

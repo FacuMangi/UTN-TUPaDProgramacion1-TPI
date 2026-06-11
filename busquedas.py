@@ -1,11 +1,11 @@
 # funcion que devuelve lista de diccionarios de paises que cuyo nombre coincide
 # parcial o totalmente
 def buscarPorNombre(paises: list, nombre: str):
-    nombre = nombre.lower()
+    nombre = nombre.title()
     resultados = []
 
     for pais in paises:
-        if nombre in pais["nombre"].lower():
+        if nombre in pais["nombre"].title():
             resultados.append(pais)
     return resultados
 
@@ -13,35 +13,35 @@ def buscarPorNombre(paises: list, nombre: str):
 def filtrarPorContinente(paises: list, continente: str):
     filtrados = []
     for pais in paises:
-        if pais['continente'].lower() == continente.lower():
+        if pais['continente'].title() == continente.title():
             filtrados.append(pais)
     return(filtrados)
 
 # funcion que devuelve lista de diccionarios de paises con una poblacion en un 
 # rango especifico
-def filtrarPorPoblacion(paises: list, min_pob: int, max_pob: int):
+def filtrarPorPoblacion(paises: list, minPob: int, maxPob: int):
     filtrados = []
     
-    if min_pob > max_pob:
+    if minPob > maxPob:
         raise ValueError("Error: minimo es mayor que maximo.")
     
     for pais in paises:
         pob = pais['poblacion']
-        if min_pob <= pob <= max_pob:
+        if minPob <= pob <= maxPob:
             filtrados.append(pais)
     return(filtrados)
 
 # funcion que devuelve lista de diccionarios de paises con una superficie en un 
 # rango especifico
-def filtrarPorSuperficie(paises: list, min_sup: int, max_sup: int):
+def filtrarPorSuperficie(paises: list, minSup: int, maxSup: int):
     filtrados = []
     
-    if min_sup > max_sup:
+    if minSup > maxSup:
         raise ValueError("Error: minimo es mayor que maximo.")
     
     for pais in paises:
         pob = pais['superficie']
-        if min_sup <= pob <= max_sup:
+        if minSup <= pob <= maxSup:
             filtrados.append(pais)
     return(filtrados)
 
@@ -49,32 +49,32 @@ def filtrarPorSuperficie(paises: list, min_sup: int, max_sup: int):
 # utilizo una funcion anonima para pasar el valor de nombre de cada pais
 # al parametro key de la funcion sorted
 def ordenarPorNombre(paises: list):
-    paises_ordenados = sorted(paises, key=lambda x: x["nombre"])
-    return(paises_ordenados)
+    paisesOrdenados = sorted(paises, key=lambda x: x["nombre"])
+    return(paisesOrdenados)
 
 # funcion que devuelve lista de diccionarios ordenados por poblacion (asc)
 def ordenarPorPoblacion(paises: list):
-    paises_ordenados = sorted(paises, key=lambda x: x["poblacion"])
-    return(paises_ordenados)
+    paisesOrdenados = sorted(paises, key=lambda x: x["poblacion"])
+    return(paisesOrdenados)
 
 # funciones que devuelve lista de diccionarios ordenados por superficie (asc y desc)
 def ordenarPorSuperficieAsc(paises: list):
-    paises_ordenados = sorted(paises, key=lambda x: x["superficie"])
-    return(paises_ordenados)
+    paisesOrdenados = sorted(paises, key=lambda x: x["superficie"])
+    return(paisesOrdenados)
 
 def ordenarPorSuperficieDesc(paises: list):
-    paises_ordenados = sorted(paises, reverse = True, key=lambda x: x["superficie"])
-    return(paises_ordenados)
+    paisesOrdenados = sorted(paises, reverse = True, key=lambda x: x["superficie"])
+    return(paisesOrdenados)
 
 # funcion que muestra pais con mayor poblacion
 def mostrarMayorPobla(paises: list):
-    mayor_pobla = max(paises, key=lambda x: x["poblacion"])
-    return(mayor_pobla)
+    mayorPobla = max(paises, key=lambda x: x["poblacion"])
+    return(mayorPobla)
 
 # funcion que muestra pais con menor poblacion
 def mostrarMenorPobla(paises: list):
-    menor_pobla = min(paises, key=lambda x: x["poblacion"])
-    return(menor_pobla)
+    menorPobla = min(paises, key=lambda x: x["poblacion"])
+    return(menorPobla)
 
 # funcion que muestra el promedio de la poblacion de todos los paises
 def mostrarPromedioPobla(paises: list):
@@ -94,12 +94,12 @@ def mostrarPromedioSuper(paises: list):
 
 # funcion que devuelve integer cantidad de paises por continente
 def mostrarCantPorCont(paises: list, continente: str):
-    cant_paises = 0
+    cantPaises = 0
     for pais in paises:
-        if pais["continente"].lower() == continente.lower():
-            cant_paises += 1
+        if pais["continente"].title() == continente.title():
+            cantPaises += 1
     
-    return(cant_paises)
+    return(cantPaises)
 
 # funcion que muestra los datos de un pais dado su diccionario
 def mostrarPais(pais):
